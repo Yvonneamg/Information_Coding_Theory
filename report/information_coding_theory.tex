@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\begin{document}
+
+\section*{Information Theory Exercise}
+
+We consider an alphabet with five characters:
+\[
+\{A, B, C, D, E\}
+\]
+Each text has length 40.
+
+%------------------------------------------------
+\section*{1. Nearly Uniform Distribution}
+
+\subsection*{Generated Text (Length 40)}
+
+\texttt{ABCDEBACEDABCDEBACEDABCDEBACEDABCDEBAC}
+
+Each character appears 8 times.
+
+\subsection*{Probability Distribution}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Character & Count & Probability \\
+\midrule
+A & 8 & 0.20 \\
+B & 8 & 0.20 \\
+C & 8 & 0.20 \\
+D & 8 & 0.20 \\
+E & 8 & 0.20 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Information per Symbol}
+
+\[
+I(x) = -\log_2 p(x)
+\]
+
+Since $p(x) = 0.2$:
+
+\[
+I = -\log_2(0.2)
+\]
+
+\[
+\log_2(0.2) = \log_2\left(\frac{1}{5}\right) = -\log_2 5
+\]
+
+\[
+\log_2 5 \approx 2.322
+\]
+
+\[
+I \approx 2.322 \text{ bits}
+\]
+
+\subsection*{Entropy}
+
+\[
+H = \sum p(x) \log_2 \frac{1}{p(x)}
+\]
+
+\[
+H = 5 \times 0.2 \times 2.322
+\]
+
+\[
+H = 2.322 \text{ bits}
+\]
+
+Maximum entropy for 5 symbols:
+
+\[
+H_{\max} = \log_2 5 = 2.322
+\]
+
+\subsection*{Total Information in the Text}
+
+\[
+40 \times 2.322 = 92.88 \text{ bits}
+\]
+
+%------------------------------------------------
+\section*{2. Biased Distribution (High-Frequency Characters)}
+
+\subsection*{Generated Text (Length 40)}
+
+\texttt{AAAAAAAAAAAAAAAABBBBBBBBCCCCDDDEEE}
+
+Counts:
+
+\[
+A = 16,\quad B = 8,\quad C = 6,\quad D = 5,\quad E = 5
+\]
+
+\subsection*{Probability Distribution}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Character & Count & Probability \\
+\midrule
+A & 16 & 0.40 \\
+B & 8 & 0.20 \\
+C & 6 & 0.15 \\
+D & 5 & 0.125 \\
+E & 5 & 0.125 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Information per Symbol}
+
+\[
+I(x) = -\log_2 p(x)
+\]
+
+\[
+I(A) = -\log_2(0.4) \approx 1.322
+\]
+
+\[
+I(B) = -\log_2(0.2) = 2.322
+\]
+
+\[
+I(C) = -\log_2(0.15) \approx 2.737
+\]
+
+\[
+I(D) = I(E) = -\log_2(0.125) = 3
+\]
+
+\subsection*{Entropy}
+
+\[
+H = \sum p(x) I(x)
+\]
+
+\[
+H =
+0.4(1.322)
++ 0.2(2.322)
++ 0.15(2.737)
++ 0.125(3)
++ 0.125(3)
+\]
+
+\[
+H =
+0.529
++ 0.464
++ 0.411
++ 0.375
++ 0.375
+\]
+
+\[
+H \approx 2.154 \text{ bits}
+\]
+
+\subsection*{Total Information}
+
+\[
+40 \times 2.154 = 86.16 \text{ bits}
+\]
+
+%------------------------------------------------
+\section*{3. Singular and Non-Singular Codes}
+
+\subsection*{Singular Code}
+
+A singular code assigns the same codeword to different symbols.
+
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+Character & Code \\
+\midrule
+A & 0 \\
+B & 0 \\
+C & 10 \\
+D & 110 \\
+E & 111 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Here A and B share the codeword 0, therefore the code is singular.
+
+\subsection*{Non-Singular Code}
+
+Each symbol has a distinct codeword.
+
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+Character & Code \\
+\midrule
+A & 0 \\
+B & 10 \\
+C & 110 \\
+D & 1110 \\
+E & 1111 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All codewords are distinct, therefore the code is non-singular.
+This code is also prefix-free (instantaneous).
+
+%------------------------------------------------
+\section*{4. Comparison}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Case & Entropy (bits/symbol) & Total Information (40 symbols) \\
+\midrule
+Uniform & 2.322 & 92.88 \\
+Biased & 2.154 & 86.16 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Entropy decreases when the distribution becomes less uniform.
+
+\end{document}
